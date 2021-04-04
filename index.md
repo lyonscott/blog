@@ -1,37 +1,35 @@
-## Welcome to GitHub Pages
+### 游戏玩法机制的Lua实现
 
-You can use the [editor on GitHub](https://github.com/lyonscott/blog/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+``` ecs.lua
+---@class world_t
+---@field entities table
+---@field systems table
+---@field add_system fun(w:world_t,sys:system_t)
+---@field add_entity fun(w:world_t,e:entity_t)
+---@field rm_system fun(w:world_t,sys:system_t)
+---@field rm_entity fun(w:world_t,e:entity_t)
+---@field update fun(w:world_t)
+---@field destroy fun(w:world_t)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+---@class entity_t
+---@field __dirty bool
+---@field __world world_t
+---@field add_component fun(e:entity_t,k,v)
+---@field rm_component fun(e:entity_t,k)
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+---@class system_t
+---@field __id number
+---@field __entities table
+---@field __world world_t
+---@field __active bool
+---@field __dirty bool
+---@field init fun(sys:system_t)
+---@field filter fun(e:entity_t)
+---@field join fun(sys:system_t,e:entity_t)
+---@field exit fun(sys:system_t,e:entity_t)
+---@field refresh fun(sys:system_t)
+---@field pre_update fun(sys:system_t)
+---@field update fun(sys:system_t)
+---@field post_update fun(sys:system_t)
+---@field destroy fun(sys:system_t)
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/lyonscott/blog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
